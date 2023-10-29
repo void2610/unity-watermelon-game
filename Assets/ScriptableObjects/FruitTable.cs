@@ -8,9 +8,8 @@ public class FruitTable : ScriptableObject
     [System.Serializable]
     public class FruitData
     {
-        public string fruitName;
-        public Color fruitColor;
-        public float fruitRadius;
+        public Color color;
+        public float radius;
     }
 
     [SerializeField]
