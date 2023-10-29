@@ -10,6 +10,7 @@ public class Fruit : MonoBehaviour
     private int number = -1;
     private float radius = 1;
     private Color color = Color.red;
+    private bool isInvincible = false;
 
     public void setNumber(int number)
     {
@@ -23,7 +24,6 @@ public class Fruit : MonoBehaviour
 
         this.transform.localScale = new Vector3(radius, radius, radius);
         this.GetComponent<Renderer>().material.color = color;
-        Debug.Log(color);
     }
 
     public int getNumber()
@@ -33,7 +33,7 @@ public class Fruit : MonoBehaviour
 
     void Awake()
     {
-
+        isInvincible = true;
     }
 
     void Start()
@@ -43,20 +43,19 @@ public class Fruit : MonoBehaviour
 
     void Update()
     {
-
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.GetComponent<Fruit>() != null)
-        {
-            if (other.gameObject.GetComponent<Fruit>().getNumber() == this.number)
-            {
-                Destroy(other.gameObject);
-                Destroy(this.gameObject);
+        if (other.gameObject.GetComponent<Fruit>() == null) return;
+        if (other.gameObject.GetComponent<Fruit>().getNumber() > 1) return;
 
-                GameManager.instance.CreateFruit(this.number + 1);
-            }
+        Debug.Log(this.gameObject.name + " " + other.gameObject.name);
+        if (other.gameObject.GetComponent<Fruit>().getNumber() == this.number)
+        {
+            GameManager.instance.CreateFruit(this.number + 1, this.transform.position);
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     private GameObject fruitPrefab;
 
-    public void CreateFruit(int number)
+    public void CreateFruit(int number, Vector3 position)
     {
-        GameObject fruit = Instantiate(fruitPrefab, new Vector3(0, number, 0), Quaternion.identity);
+        GameObject fruit = Instantiate(fruitPrefab, position, Quaternion.identity);
         fruit.AddComponent<Fruit>();
         fruit.GetComponent<Fruit>().setNumber(number);
     }
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            CreateFruit(1);
+            CreateFruit(1, new Vector3(0, 10, 0));
         }
     }
 }
