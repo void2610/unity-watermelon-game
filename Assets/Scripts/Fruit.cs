@@ -11,6 +11,7 @@ public class Fruit : MonoBehaviour
     private float radius = 1;
     private Color color = Color.red;
     private bool isInvincible = false;
+    private bool isChecking = false;
 
     public void setNumber(int number)
     {
@@ -31,6 +32,16 @@ public class Fruit : MonoBehaviour
         return this.number;
     }
 
+    public bool getIsCheking()
+    {
+        return this.isChecking;
+    }
+
+    public void setIsCheking(bool isChecking)
+    {
+        this.isChecking = isChecking;
+    }
+
     void Awake()
     {
         isInvincible = true;
@@ -47,12 +58,15 @@ public class Fruit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.GetComponent<Fruit>()?.getIsCheking() == true || this.isChecking == true) return;
         if (other.gameObject.GetComponent<Fruit>() == null) return;
-        if (other.gameObject.GetComponent<Fruit>().getNumber() > 1) return;
+        if (other.gameObject.GetComponent<Fruit>().getNumber() > 11) return;
 
-        Debug.Log(this.gameObject.name + " " + other.gameObject.name);
+
         if (other.gameObject.GetComponent<Fruit>().getNumber() == this.number)
         {
+            this.isChecking = true;
+            other.gameObject.GetComponent<Fruit>().setIsCheking(true);
             GameManager.instance.CreateFruit(this.number + 1, this.transform.position);
             Destroy(other.gameObject);
             Destroy(this.gameObject);
