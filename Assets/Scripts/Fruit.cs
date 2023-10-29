@@ -54,6 +54,8 @@ public class Fruit : MonoBehaviour
             {
                 Destroy(other.gameObject);
                 Destroy(this.gameObject);
+
+                GameManager.instance.CreateFruit(this.number + 1);
             }
         }
     }
