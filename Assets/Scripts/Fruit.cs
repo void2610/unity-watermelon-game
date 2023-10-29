@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fruits : MonoBehaviour
+public class Fruit : MonoBehaviour
 {
     private int number = -1;
     private float radius = 1;
@@ -35,5 +35,18 @@ public class Fruits : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log(other.gameObject.name);
+        if (other.gameObject.GetComponent<Fruit>() != null)
+        {
+            if (other.gameObject.GetComponent<Fruit>().getNumber() == this.number)
+            {
+                Destroy(other.gameObject);
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
