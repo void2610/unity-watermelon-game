@@ -37,14 +37,24 @@ public class Fruit : MonoBehaviour
         return this.isChecking;
     }
 
+    public bool getIsInvincible()
+    {
+        return this.isInvincible;
+    }
+
     public void setIsCheking(bool isChecking)
     {
         this.isChecking = isChecking;
     }
 
+    public void setInvincible(bool isInvincible)
+    {
+        this.isInvincible = isInvincible;
+    }
+
+
     void Awake()
     {
-        isInvincible = true;
     }
 
     void Start()
@@ -61,6 +71,7 @@ public class Fruit : MonoBehaviour
         if (other.gameObject.GetComponent<Fruit>()?.getIsCheking() == true || this.isChecking == true) return;
         if (other.gameObject.GetComponent<Fruit>() == null) return;
         if (other.gameObject.GetComponent<Fruit>().getNumber() > 11) return;
+        if (this.isInvincible == true || other.gameObject.GetComponent<Fruit>().getIsInvincible() == true) return;
 
 
         if (other.gameObject.GetComponent<Fruit>().getNumber() == this.number)
